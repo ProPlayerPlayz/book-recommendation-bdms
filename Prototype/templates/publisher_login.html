@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #222; /* Dark grey background */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Hide overflow to prevent scroll bars */
+        }
+
+        .scroll-bg {
+            height: 100%;
+            width: 200%; /* Increased width to create looping effect */
+            position: absolute;
+            background-color: #222; /* Dark grey background */
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS2NHNJWVojbA_tUNEp6aYj5a1B9nmv3LI8ZgDBske5lYpEZkS_CDIw8NfM18pOVIR-Ow&usqp=CAU');
+            /* background-size: cover; */
+            animation: scrollBg 100s linear infinite; /* Adjust animation duration as needed */
+            z-index: -1;
+        }
+
+        @keyframes scrollBg {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #fff; /* Font color set to white */
+            position: relative;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff; /* Font color set to white */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ccc; /* Label color set to light grey */
+        }
+        
+        .form-group input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 5px;
+            color: #fff; /* Input text color set to white */
+            background: rgba(0, 0, 0, 0.5); /* Dark translucent background */
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)); /* Dark gradient */
+        }
+        
+        .form-group button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-bg"></div>
+    <div class="container">
+        <h2>Placeholder Publisher Login</h2>
+        <form action="/publisher_login" method="post">
+            <div class="form-group">
+                <label for="pid">Publisher ID:</label>
+                <input type="text" id="pid" name="pid" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

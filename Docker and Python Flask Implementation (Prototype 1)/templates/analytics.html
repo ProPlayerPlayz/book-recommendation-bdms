@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Menu bar styles */
+        .menu {
+            background-color: #f1f1f1;
+            overflow: hidden;
+            align-items: center;
+        }
+        
+        .menu a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        .menu a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #user_id {
+            color: white;
+            margin-right: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        canvas {
+            display: block;
+            margin: auto;
+            margin-top: 10px;
+            max-width: 80%;
+        }
+
+        button {
+            margin: 10px 5px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="/publish/{{pid}}">Publish</a>
+        <a class="active" href="/analytics/{{pid}}/1">Analytics</a>
+        <a href="/data_analysis/0">Data Analysis</a>
+        <a href="/logout">Logout</a>
+        <p id="user_id">Welcome, {{ pid }}!</p>
+    </div>
+    
+    <h1>Sales Trend</h1>
+    <canvas id="salesChart"></canvas>
+    <div style="text-align: center;">
+        <button onclick="window.location.href='/analytics/{{pid}}/1'">Last Month</button>
+        <button onclick="window.location.href='/analytics/{{pid}}/12'">Last Year</button>
+        <button onclick="window.location.href='/analytics/{{pid}}/60'">Last 5 Years</button>
+    </div>
+    
+    <h2>Top 10 Books</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>Book Title</th>
+                <th>Book Author</th>
+                <th>Sales</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in top_books %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ book.BookTitle }}</td>
+                <td>{{ book.BookAuthor }}</td>
+                <td>{{ book.sales }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        var x_data = '{{ x_data | tojson }}';
+        x_data = x_data.replace(/&quot;/g, '"');
+        x_data = JSON.parse(x_data);
+
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: x_data,
+                datasets: [{
+                    label: 'Sales',
+                    data: "{{ y_data }}",
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                    x: {
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 20
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

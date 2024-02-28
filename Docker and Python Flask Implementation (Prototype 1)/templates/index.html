@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProLib E-Book System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://daily.jstor.org/wp-content/uploads/2014/11/oldbooks.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            max-width: 900px;
+            padding: 40px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 24px;
+            color: #1b1b1b;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+            margin-right: 20px;
+            text-transform: uppercase;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ProLib</h1>
+        <p>Get all books online!</p>
+        <a href="/login" class="button">User Page</a>
+        <a href="/publisher_login" class="button">Publisher Page</a>
+    </div>
+</body>
+</html>

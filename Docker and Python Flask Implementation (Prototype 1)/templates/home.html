@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Book System</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d0d36;
+            background-image: url('https://usagif.com/wp-content/uploads/2021/4fh5wi/animated-wallpaper-240x320px-acegif-49.gif');
+            background-size: cover; 
+            color: rgb(3, 3, 3); /* Set default text color to white */
+        }
+
+        /* Menu bar styles */
+        .menu {
+            background-color: #f1f1f1;
+            overflow: hidden;
+            align-items: center;
+        }
+        
+        .menu a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        .menu a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Book list styles */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 20px;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .book-button {
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            height: 300px; /* Fixed height for each book container */
+            justify-content: space-between;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f1f1f1;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .book-button img {
+            max-width: 100%;
+            max-height: 200px;
+            display: block;
+            margin: 0 auto;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* Set text color for book details */
+        .book-details {
+            color: rgb(16, 8, 43);
+            text-align: center;
+        }
+
+        /* Page navigation buttons */
+        .page-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .page-buttons form {
+            margin: 0 10px;
+        }
+        
+        .page-buttons p {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        /* Hover effect for book buttons */
+        .book-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- <IMG SRC="background.gif"> -->
+    <div class="menu">
+        <a class="active" href="/home/{{user_id}}">Home</a>
+        <a href="/search/">Search</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <p style="float: right; margin-right: 20px;">Welcome, <span id="user_id">{{ username }}</span>!</p>
+    </div>
+    
+    <div class="book-grid">
+        {% for book in books %}
+            <a href="{{ url_for('book_page', isbn=book.ISBN) }}" class="book-button">
+                <img src="{{ book.ImageURL }}" alt="{{ book.BookTitle }}">
+                <div class="book-details">
+                    <p>{{ book.BookTitle }}</p>
+                    <p>{{ book.BookAuthor }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- Page navigation buttons -->
+    <div class="page-buttons">
+        <form action="/home/{{user_id}}" method="post">
+            <input type="hidden" name="page" id="page" value="Back {{ page }}">
+            <input type="submit" value="Previous Page">
+        </form>
+        <form action="/home/{{user_id}}" method="post">
+            <input type="hidden" name="page" id="page" value="Next {{ page }}">
+            <input type="submit" value="Next Page">
+        </form>
+        <p>Current Page: {{ page }}</p>
+    </div>
+</body>
+</html>
